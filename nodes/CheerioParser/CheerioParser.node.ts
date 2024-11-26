@@ -131,15 +131,10 @@ export class CheerioParser implements INodeType {
 					json: executionResults,
 				});
 			} catch (error) {
-				if (this.continueOnFail()) {
-					returnData.push({
-						json: {
-							error: error.message,
-						},
-					});
-					continue;
+				if (error instanceof Error) {
+					throw new NodeOperationError(this.getNode(), `HTML parsing failed: ${error.message}`);
 				}
-				throw error;
+				throw new NodeOperationError(this.getNode(), 'HTML parsing failed with an unknown error');
 			}
 		}
 

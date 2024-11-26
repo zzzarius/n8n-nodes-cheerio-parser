@@ -4,21 +4,14 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es2019",
-    "lib": ["es2019", "es2020", "es2022.error"],
+    "lib": ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
     "removeComments": true,
-    "useUnknownInCatchVariables": false,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noErrorTruncation": true,
-    "esModuleInterop": true,
+    "useDefineForClassFields": false,
     "skipLibCheck": true,
-    "outDir": "./dist/",
-    "rootDir": "./",
     "sourceMap": true,
-    "baseUrl": "."
+    "outDir": "./dist/",
+    "esModuleInterop": true
   },
   "include": ["nodes/**/*", "credentials/**/*"],
-  "exclude": ["node_modules/**/*", "**/*.spec.ts"]
+  "exclude": ["node_modules/**/*", "**/*.test.ts"]
 }
