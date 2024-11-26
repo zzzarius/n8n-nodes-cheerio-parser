@@ -1,0 +1,60 @@
+{
+  "name": "n8n-nodes-cheerio-parser",
+  "version": "0.1.0",
+  "description": "n8n node for parsing HTML using Cheerio",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "cheerio",
+    "html",
+    "parser"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/zzzarius/n8n-nodes-cheerio-parser",
+  "author": {
+    "name": "Darius Zivertas",
+    "email": "n8n-nodes-cheerio-parser@zivertas.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zzzarius/n8n-nodes-cheerio-parser"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials package.json",
+    "lintfix": "eslint nodes credentials package.json --fix",
+    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json",
+    "test": "jest"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [],
+    "nodes": [
+      "dist/nodes/CheerioParser/CheerioParser.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.35",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^18.16.16",
+    "@typescript-eslint/parser": "~5.59.8",
+    "eslint-plugin-n8n-nodes-base": "^1.14.1",
+    "gulp": "^4.0.2",
+    "jest": "^29.7.0",
+    "prettier": "^2.8.8",
+    "ts-jest": "^29.1.1",
+    "typescript": "~5.0.4"
+  },
+  "dependencies": {
+    "cheerio": "1.0.0-rc.12",
+    "n8n-core": "1.11.1",
+    "n8n-workflow": "1.11.1"
+  }
+}
