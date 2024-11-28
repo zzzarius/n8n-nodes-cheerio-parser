@@ -11,6 +11,7 @@ import * as cheerio from 'cheerio';
 interface SelectorItem {
 	name: string;
 	selector: string;
+	attribute?: string;
 	singleItem: boolean;
 }
 
@@ -77,6 +78,15 @@ export class CheerioParser implements INodeType {
 								required: true,
 							},
 							{
+								displayName: 'Attribute',
+								name: 'attribute',
+								type: 'string',
+								default: '',
+								placeholder: 'class',
+								description: 'Attribute to extract. If not provided, the entire element will be returned',
+								required: false,
+							},
+							{
 								displayName: 'Return Single Item',
 								name: 'singleItem',
 								type: 'boolean',
@@ -109,12 +119,19 @@ export class CheerioParser implements INodeType {
 				let totalElements = 0;
 
 				for (const selectorData of selectorsData) {
-					const { name, selector, singleItem } = selectorData;
+					const { name, selector, singleItem, attribute } = selectorData;
 					const $elements = $(selector);
 					const elements: string[] = [];
 
 					$elements.each((_, el) => {
-						elements.push($.html(el));
+						if (attribute) {
+							const value = $(el).attr(attribute);
+							if (value) {
+								elements.push(value);
+							}
+						} else {
+							elements.push($.html(el));
+						}
 					});
 
 					results[name] = singleItem ? elements[0] || '' : elements;
