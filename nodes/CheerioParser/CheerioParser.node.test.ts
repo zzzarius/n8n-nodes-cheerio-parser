@@ -212,5 +212,84 @@ describe('CheerioParser', () => {
 			expect(data.results.title).toBe('');
 			expect(data.totalElements).toBe(0);
 		});
+
+		it('should extract single attribute value', async () => {
+			const context = {
+				getNodeParameter: (param: string, _itemIndex: number) => {
+					if (param === 'html') return testHtml;
+					if (param === 'selectors.selectorValues') {
+						return [{
+							name: 'titleClass',
+							selector: 'h1',
+							attribute: 'class',
+							singleItem: true
+						}];
+					}
+					return undefined;
+				},
+				getInputData: () => [{}],
+				getNode: () => ({ name: 'test', type: 'test', typeVersion: 1 }),
+				continueOnFail: () => false,
+			} as unknown as IExecuteFunctions;
+
+			const result = await node.execute!.call(context);
+			expect(result).toBeDefined();
+			const data = result![0][0].json as unknown as TestResult;
+			expect(data.results.titleClass).toBe('title');
+			expect(data.totalElements).toBe(1);
+		});
+
+		it('should extract multiple attribute values', async () => {
+			const context = {
+				getNodeParameter: (param: string, _itemIndex: number) => {
+					if (param === 'html') return testHtml;
+					if (param === 'selectors.selectorValues') {
+						return [{
+							name: 'itemClasses',
+							selector: 'span',
+							attribute: 'class',
+							singleItem: false
+						}];
+					}
+					return undefined;
+				},
+				getInputData: () => [{}],
+				getNode: () => ({ name: 'test', type: 'test', typeVersion: 1 }),
+				continueOnFail: () => false,
+			} as unknown as IExecuteFunctions;
+
+			const result = await node.execute!.call(context);
+			expect(result).toBeDefined();
+			const data = result![0][0].json as unknown as TestResult;
+			expect(Array.isArray(data.results.itemClasses)).toBe(true);
+			expect((data.results.itemClasses as string[])).toEqual(['item', 'item', 'item']);
+			expect(data.totalElements).toBe(3);
+		});
+
+		it('should handle non-existent attributes', async () => {
+			const context = {
+				getNodeParameter: (param: string, _itemIndex: number) => {
+					if (param === 'html') return testHtml;
+					if (param === 'selectors.selectorValues') {
+						return [{
+							name: 'nonExistentAttr',
+							selector: 'h1',
+							attribute: 'data-test',
+							singleItem: true
+						}];
+					}
+					return undefined;
+				},
+				getInputData: () => [{}],
+				getNode: () => ({ name: 'test', type: 'test', typeVersion: 1 }),
+				continueOnFail: () => false,
+			} as unknown as IExecuteFunctions;
+
+			const result = await node.execute!.call(context);
+			expect(result).toBeDefined();
+			const data = result![0][0].json as unknown as TestResult;
+			expect(data.results.nonExistentAttr).toBe('');
+			expect(data.totalElements).toBe(0);
+		});
 	});
 });
