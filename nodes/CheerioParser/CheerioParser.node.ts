@@ -142,7 +142,7 @@ export class CheerioParser implements INodeType {
                 elements.push(value);
               }
             } else {
-              elements.push($.html(el));
+              elements.push($(el).text());
             }
           });
 

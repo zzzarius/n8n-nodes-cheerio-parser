@@ -90,7 +90,7 @@ describe("CheerioParser", () => {
       const result = await node.execute?.call(context);
       expect(result).toBeDefined();
       const data = result?.[0][0].json as unknown as TestResult;
-      expect(data.results.title).toBe('<h1 class="title">Main Title</h1>');
+      expect(data.results.title).toBe('Main Title');
       expect(data.totalElements).toBe(1);
     });
 
@@ -150,7 +150,7 @@ describe("CheerioParser", () => {
       const result = await node.execute?.call(context);
       expect(result).toBeDefined();
       const data = result?.[0][0].json as unknown as TestResult;
-      expect(data.results.title).toBe('<h1 class="title">Main Title</h1>');
+      expect(data.results.title).toBe('Main Title');
       expect(Array.isArray(data.results.paragraphs)).toBe(true);
       expect((data.results.paragraphs as string[]).length).toBe(2);
       expect(data.totalElements).toBe(3);
