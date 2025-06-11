@@ -44,7 +44,7 @@ Input HTML:
 </div>
 ```
 
-With selector: `.content h1` and output type: `text`, the node will return:
+With selector: `.content h1` the node will return:
 ```json
 {
   "result": "Title"
@@ -86,10 +86,10 @@ Output:
 ```json
 {
   "results": {
-    "title": "<h1 class=\"title\">Welcome to my blog</h1>",
+    "title": "Welcome to my blog",
     "paragraphs": [
-      "<p>First paragraph of content</p>",
-      "<p>Second paragraph of content</p>"
+      "First paragraph of content",
+      "Second paragraph of content"
     ]
   },
   "total": {
