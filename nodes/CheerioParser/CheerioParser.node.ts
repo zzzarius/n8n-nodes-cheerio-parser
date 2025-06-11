@@ -5,6 +5,7 @@ import {
   type INodeExecutionData,
   type INodeType,
   type INodeTypeDescription,
+  NodeConnectionType,
   NodeOperationError,
 } from "n8n-workflow";
 
@@ -32,8 +33,8 @@ export class CheerioParser implements INodeType {
     defaults: {
       name: "Cheerio Parser",
     },
-    inputs: ["main"],
-    outputs: ["main"],
+    inputs: [NodeConnectionType.Main],
+    outputs: [NodeConnectionType.Main],
     properties: [
       {
         displayName: "HTML",
