@@ -41,6 +41,6 @@
   },
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
-    "n8n-core": "~0.125.0"
+    "n8n-core": "~1.97.0"
   }
 }
