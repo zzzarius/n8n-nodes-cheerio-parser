@@ -14,26 +14,26 @@ describe("CheerioParser", () => {
   beforeEach(() => {
     node = new CheerioParser();
     testHtml = `
-			<html>
-				<head>
-					<title>Test Page</title>
-				</head>
-				<body>
-					<div class="container">
-						<h1 class="title">Main Title</h1>
-						<div class="content">
-							<p>First paragraph</p>
-							<p>Second paragraph</p>
-						</div>
-						<div class="items">
-							<span class="item">Item 1</span>
-							<span class="item">Item 2</span>
-							<span class="item">Item 3</span>
-						</div>
-					</div>
-				</body>
-			</html>
-		`;
+      <html>
+        <head>
+          <title>Test Page</title>
+        </head>
+        <body>
+          <div class="container">
+            <h1 class="title">Main Title</h1>
+            <div class="content">
+              <p>First paragraph</p>
+              <p>Second paragraph</p>
+            </div>
+            <div class="items">
+              <span class="item">Item 1</span>
+              <span class="item">Item 2</span>
+              <span class="item">Item 3</span>
+            </div>
+          </div>
+        </body>
+      </html>
+    `;
   });
 
   describe("Node Description", () => {
