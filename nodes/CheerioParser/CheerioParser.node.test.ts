@@ -1,4 +1,8 @@
-import { IExecuteFunctions, INodeType, NodeOperationError } from "n8n-workflow";
+import {
+  type IExecuteFunctions,
+  type INodeType,
+  NodeOperationError,
+} from "n8n-workflow";
 import { CheerioParser } from "./CheerioParser.node";
 
 interface TestResult {
@@ -83,9 +87,9 @@ describe("CheerioParser", () => {
         continueOnFail: () => false,
       } as unknown as IExecuteFunctions;
 
-      const result = await node.execute!.call(context);
+      const result = await node.execute?.call(context);
       expect(result).toBeDefined();
-      const data = result![0][0].json as unknown as TestResult;
+      const data = result?.[0][0].json as unknown as TestResult;
       expect(data.results.title).toBe('<h1 class="title">Main Title</h1>');
       expect(data.totalElements).toBe(1);
     });
@@ -110,9 +114,9 @@ describe("CheerioParser", () => {
         continueOnFail: () => false,
       } as unknown as IExecuteFunctions;
 
-      const result = await node.execute!.call(context);
+      const result = await node.execute?.call(context);
       expect(result).toBeDefined();
-      const data = result![0][0].json as unknown as TestResult;
+      const data = result?.[0][0].json as unknown as TestResult;
       expect(Array.isArray(data.results.items)).toBe(true);
       expect((data.results.items as string[]).length).toBe(3);
       expect(data.totalElements).toBe(3);
@@ -143,9 +147,9 @@ describe("CheerioParser", () => {
         continueOnFail: () => false,
       } as unknown as IExecuteFunctions;
 
-      const result = await node.execute!.call(context);
+      const result = await node.execute?.call(context);
       expect(result).toBeDefined();
-      const data = result![0][0].json as unknown as TestResult;
+      const data = result?.[0][0].json as unknown as TestResult;
       expect(data.results.title).toBe('<h1 class="title">Main Title</h1>');
       expect(Array.isArray(data.results.paragraphs)).toBe(true);
       expect((data.results.paragraphs as string[]).length).toBe(2);
@@ -172,9 +176,9 @@ describe("CheerioParser", () => {
         continueOnFail: () => false,
       } as unknown as IExecuteFunctions;
 
-      const result = await node.execute!.call(context);
+      const result = await node.execute?.call(context);
       expect(result).toBeDefined();
-      const data = result![0][0].json as unknown as TestResult;
+      const data = result?.[0][0].json as unknown as TestResult;
       expect(data.results.nonexistent).toBe("");
       expect(data.totalElements).toBe(0);
     });
@@ -191,8 +195,8 @@ describe("CheerioParser", () => {
         continueOnFail: () => false,
       } as unknown as IExecuteFunctions;
 
-      await expect(node.execute!.call(context)).rejects.toThrow(
-        NodeOperationError
+      await expect(node.execute?.call(context)).rejects.toThrow(
+        NodeOperationError,
       );
     });
 
@@ -216,9 +220,9 @@ describe("CheerioParser", () => {
         continueOnFail: () => false,
       } as unknown as IExecuteFunctions;
 
-      const result = await node.execute!.call(context);
+      const result = await node.execute?.call(context);
       expect(result).toBeDefined();
-      const data = result![0][0].json as unknown as TestResult;
+      const data = result?.[0][0].json as unknown as TestResult;
       expect(data.results.title).toBe("");
       expect(data.totalElements).toBe(0);
     });
@@ -244,9 +248,9 @@ describe("CheerioParser", () => {
         continueOnFail: () => false,
       } as unknown as IExecuteFunctions;
 
-      const result = await node.execute!.call(context);
+      const result = await node.execute?.call(context);
       expect(result).toBeDefined();
-      const data = result![0][0].json as unknown as TestResult;
+      const data = result?.[0][0].json as unknown as TestResult;
       expect(data.results.titleClass).toBe("title");
       expect(data.totalElements).toBe(1);
     });
@@ -272,9 +276,9 @@ describe("CheerioParser", () => {
         continueOnFail: () => false,
       } as unknown as IExecuteFunctions;
 
-      const result = await node.execute!.call(context);
+      const result = await node.execute?.call(context);
       expect(result).toBeDefined();
-      const data = result![0][0].json as unknown as TestResult;
+      const data = result?.[0][0].json as unknown as TestResult;
       expect(Array.isArray(data.results.itemClasses)).toBe(true);
       expect(data.results.itemClasses as string[]).toEqual([
         "item",
@@ -305,9 +309,9 @@ describe("CheerioParser", () => {
         continueOnFail: () => false,
       } as unknown as IExecuteFunctions;
 
-      const result = await node.execute!.call(context);
+      const result = await node.execute?.call(context);
       expect(result).toBeDefined();
-      const data = result![0][0].json as unknown as TestResult;
+      const data = result?.[0][0].json as unknown as TestResult;
       expect(data.results.nonExistentAttr).toBe("");
       expect(data.totalElements).toBe(0);
     });

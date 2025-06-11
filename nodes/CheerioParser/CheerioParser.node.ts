@@ -1,12 +1,12 @@
-import {
-  IExecuteFunctions,
-  INodeExecutionData,
-  INodeType,
-  INodeTypeDescription,
-  NodeOperationError,
-  IDataObject,
-} from "n8n-workflow";
 import * as cheerio from "cheerio";
+import {
+  type IDataObject,
+  type IExecuteFunctions,
+  type INodeExecutionData,
+  type INodeType,
+  type INodeTypeDescription,
+  NodeOperationError,
+} from "n8n-workflow";
 
 interface SelectorItem {
   name: string;
@@ -104,7 +104,7 @@ export class CheerioParser implements INodeType {
   };
 
   async execute(
-    this: IExecuteFunctions
+    this: IExecuteFunctions,
   ): Promise<INodeExecutionData[][] | null> {
     const items = this.getInputData();
     const returnData: INodeExecutionData[] = [];
@@ -115,13 +115,13 @@ export class CheerioParser implements INodeType {
         const selectorsData = this.getNodeParameter(
           "selectors.selectorValues",
           i,
-          []
+          [],
         ) as SelectorItem[];
 
         if (selectorsData.length === 0) {
           throw new NodeOperationError(
             this.getNode(),
-            "At least one selector is required"
+            "At least one selector is required",
           );
         }
 
@@ -162,12 +162,12 @@ export class CheerioParser implements INodeType {
         if (error instanceof Error) {
           throw new NodeOperationError(
             this.getNode(),
-            `HTML parsing failed: ${error.message}`
+            `HTML parsing failed: ${error.message}`,
           );
         }
         throw new NodeOperationError(
           this.getNode(),
-          "HTML parsing failed with an unknown error"
+          "HTML parsing failed with an unknown error",
         );
       }
     }
