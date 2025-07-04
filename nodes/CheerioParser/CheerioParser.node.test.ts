@@ -52,7 +52,7 @@ describe("CheerioParser", () => {
     it("should have required properties", () => {
       const properties = node.description.properties;
       expect(properties).toBeDefined();
-      expect(properties.length).toBe(2);
+      expect(properties.length).toBe(3);
 
       // HTML input property
       const htmlProp = properties[0];
@@ -63,6 +63,11 @@ describe("CheerioParser", () => {
       const selectorsProp = properties[1];
       expect(selectorsProp.name).toBe("selectors");
       expect(selectorsProp.type).toBe("fixedCollection");
+
+      // Remove Elements property
+      const removeElementsProp = properties[2];
+      expect(removeElementsProp.name).toBe("removeElements");
+      expect(removeElementsProp.type).toBe("string");
     });
   });
 
