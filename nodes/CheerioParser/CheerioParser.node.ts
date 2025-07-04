@@ -101,6 +101,16 @@ export class CheerioParser implements INodeType {
         ],
         description: "The CSS selectors to use",
       },
+      {
+        displayName: "Remove Elements",
+        name: "removeElements",
+        type: "string",
+        default: "",
+        placeholder: "script, style, nav, footer",
+        description:
+          "Comma-separated CSS selectors for elements to remove before parsing (e.g. 'script, style, nav, footer')",
+        required: false,
+      },
     ],
   };
 
@@ -118,6 +128,14 @@ export class CheerioParser implements INodeType {
           i,
           [],
         ) as SelectorItem[];
+        const removeElements = (this.getNodeParameter(
+          "removeElements",
+          i,
+          ""
+        ) as string)
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
 
         if (selectorsData.length === 0) {
           throw new NodeOperationError(
@@ -127,6 +145,9 @@ export class CheerioParser implements INodeType {
         }
 
         const $ = cheerio.load(html);
+        if (removeElements.length > 0) {
+          $(removeElements.join(", ")).remove();
+        }
         const results: { [key: string]: string | string[] } = {};
         let totalElements = 0;
 
