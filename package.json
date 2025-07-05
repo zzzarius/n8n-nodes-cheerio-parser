@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-cheerio-parser",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "n8n node to parse HTML using Cheerio",
   "keywords": ["n8n", "node", "cheerio", "html", "parser"],
   "license": "MIT",
