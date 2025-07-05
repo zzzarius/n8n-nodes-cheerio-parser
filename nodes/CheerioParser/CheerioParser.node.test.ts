@@ -324,7 +324,8 @@ describe("CheerioParser", () => {
     it("should remove unwanted elements before parsing", async () => {
       const context = {
         getNodeParameter: (param: string, _itemIndex: number) => {
-          if (param === "html") return `\n        <html>\n          <body>\n            <script>console.log('bad')</script>\n            <style>.hidden{}</style>\n            <nav>Navigation</nav>\n            <footer>Footer</footer>\n            <div class='main'>Content</div>\n          </body>\n        </html>\n      `;
+          if (param === "html")
+            return `\n        <html>\n          <body>\n            <script>console.log('bad')</script>\n            <style>.hidden{}</style>\n            <nav>Navigation</nav>\n            <footer>Footer</footer>\n            <div class='main'>Content</div>\n          </body>\n        </html>\n      `;
           if (param === "selectors.selectorValues") {
             return [
               {
@@ -364,7 +365,8 @@ describe("CheerioParser", () => {
     it("should do nothing if removeElements is empty", async () => {
       const context = {
         getNodeParameter: (param: string, _itemIndex: number) => {
-          if (param === "html") return `\n        <html>\n          <body>\n            <script>console.log('bad')</script>\n            <div class='main'>Content</div>\n          </body>\n        </html>\n      `;
+          if (param === "html")
+            return `\n        <html>\n          <body>\n            <script>console.log('bad')</script>\n            <div class='main'>Content</div>\n          </body>\n        </html>\n      `;
           if (param === "selectors.selectorValues") {
             return [
               {
