@@ -2,7 +2,13 @@
   "name": "n8n-nodes-cheerio-parser",
   "version": "0.3.0",
   "description": "n8n node to parse HTML using Cheerio",
-  "keywords": ["n8n", "node", "cheerio", "html", "parser"],
+  "keywords": [
+    "n8n",
+    "node",
+    "cheerio",
+    "html",
+    "parser"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/zzzarius/n8n-nodes-cheerio-parser",
   "author": {
@@ -23,11 +29,15 @@
     "prepublishOnly": "npm run build",
     "test": "jest"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [],
-    "nodes": ["dist/nodes/CheerioParser/CheerioParser.node.js"]
+    "nodes": [
+      "dist/nodes/CheerioParser/CheerioParser.node.js"
+    ]
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.6",
