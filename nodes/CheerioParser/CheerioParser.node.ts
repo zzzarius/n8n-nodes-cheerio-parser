@@ -129,7 +129,7 @@ export class CheerioParser implements INodeType {
           [],
         ) as SelectorItem[];
         const removeElements = (
-          this.getNodeParameter("removeElements", i, "") as string
+          (this.getNodeParameter("removeElements", i, "") as string) || ""
         )
           .split(",")
           .map((s) => s.trim())
