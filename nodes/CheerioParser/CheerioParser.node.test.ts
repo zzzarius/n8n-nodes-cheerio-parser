@@ -52,7 +52,7 @@ describe("CheerioParser", () => {
     it("should have required properties", () => {
       const properties = node.description.properties;
       expect(properties).toBeDefined();
-      expect(properties.length).toBe(2);
+      expect(properties.length).toBe(3);
 
       // HTML input property
       const htmlProp = properties[0];
@@ -63,6 +63,11 @@ describe("CheerioParser", () => {
       const selectorsProp = properties[1];
       expect(selectorsProp.name).toBe("selectors");
       expect(selectorsProp.type).toBe("fixedCollection");
+
+      // Remove Elements property
+      const removeElementsProp = properties[2];
+      expect(removeElementsProp.name).toBe("removeElements");
+      expect(removeElementsProp.type).toBe("string");
     });
   });
 
@@ -314,6 +319,82 @@ describe("CheerioParser", () => {
       const data = result?.[0][0].json as unknown as TestResult;
       expect(data.results.nonExistentAttr).toBe("");
       expect(data.totalElements).toBe(0);
+    });
+
+    it("should remove unwanted elements before parsing", async () => {
+      const context = {
+        getNodeParameter: (param: string, _itemIndex: number) => {
+          if (param === "html")
+            return `\n        <html>\n          <body>\n            <script>console.log('bad')</script>\n            <style>.hidden{}</style>\n            <nav>Navigation</nav>\n            <footer>Footer</footer>\n            <div class='main'>Content</div>\n          </body>\n        </html>\n      `;
+          if (param === "selectors.selectorValues") {
+            return [
+              {
+                name: "mainContent",
+                selector: ".main",
+                singleItem: true,
+              },
+              {
+                name: "script",
+                selector: "script",
+                singleItem: true,
+              },
+              {
+                name: "footer",
+                selector: "footer",
+                singleItem: true,
+              },
+            ];
+          }
+          if (param === "removeElements") return "script, style, nav, footer";
+          return undefined;
+        },
+        getInputData: () => [{}],
+        getNode: () => ({ name: "test", type: "test", typeVersion: 1 }),
+        continueOnFail: () => false,
+      } as unknown as IExecuteFunctions;
+
+      const result = await node.execute?.call(context);
+      expect(result).toBeDefined();
+      const data = result?.[0][0].json as unknown as TestResult;
+      expect(data.results.mainContent).toBe("Content");
+      expect(data.results.script).toBe("");
+      expect(data.results.footer).toBe("");
+      expect(data.totalElements).toBe(1);
+    });
+
+    it("should do nothing if removeElements is empty", async () => {
+      const context = {
+        getNodeParameter: (param: string, _itemIndex: number) => {
+          if (param === "html")
+            return `\n        <html>\n          <body>\n            <script>console.log('bad')</script>\n            <div class='main'>Content</div>\n          </body>\n        </html>\n      `;
+          if (param === "selectors.selectorValues") {
+            return [
+              {
+                name: "script",
+                selector: "script",
+                singleItem: true,
+              },
+              {
+                name: "mainContent",
+                selector: ".main",
+                singleItem: true,
+              },
+            ];
+          }
+          if (param === "removeElements") return "";
+          return undefined;
+        },
+        getInputData: () => [{}],
+        getNode: () => ({ name: "test", type: "test", typeVersion: 1 }),
+        continueOnFail: () => false,
+      } as unknown as IExecuteFunctions;
+
+      const result = await node.execute?.call(context);
+      expect(result).toBeDefined();
+      const data = result?.[0][0].json as unknown as TestResult;
+      expect(data.results.script).toBe("console.log('bad')");
+      expect(data.results.mainContent).toBe("Content");
+      expect(data.totalElements).toBe(2);
     });
   });
 });
