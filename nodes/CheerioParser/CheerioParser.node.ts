@@ -128,12 +128,6 @@ export class CheerioParser implements INodeType {
           i,
           [],
         ) as SelectorItem[];
-        const removeElements = (
-          this.getNodeParameter("removeElements", i, "") as string
-        )
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean);
 
         if (selectorsData.length === 0) {
           throw new NodeOperationError(
@@ -142,9 +136,16 @@ export class CheerioParser implements INodeType {
           );
         }
 
+        const removeElements =
+          ((this.getNodeParameter("removeElements", i, "") as string) ?? "")
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean) ?? [];
+
         const $ = cheerio.load(html);
-        if (removeElements.length > 0) {
-          $(removeElements.join(", ")).remove();
+        if (Array.isArray(removeElements) && removeElements.length > 0) {
+          const selectorsToRemove = removeElements.join(", ");
+          $(selectorsToRemove).remove();
         }
         const results: { [key: string]: string | string[] } = {};
         let totalElements = 0;
