@@ -50,6 +50,6 @@
   },
   "dependencies": {
     "cheerio": "1.1.0",
-    "n8n-core": "~1.101.0"
+    "n8n-core": "~1.102.0"
   }
 }
