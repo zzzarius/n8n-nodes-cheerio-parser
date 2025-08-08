@@ -1,6 +1,7 @@
-# n8n-nodes-cheerio-parser
+# n8n-nodes-cheerio-html-parser
 
 This is a custom n8n node that uses Cheerio to parse HTML content.
+
 ## Features
 
 - Parse HTML using multiple CSS selectors
@@ -25,12 +26,12 @@ npm link
 ```
 5. In your n8n installation directory, run:
 ```bash
-npm link n8n-nodes-cheerio-parser
+npm link n8n-nodes-cheerio-html-parser
 ```
 
 ## Usage
 
-1. Add the "Cheerio Parser" node to your workflow
+1. Add the "Cheerio HTML Parser" node to your workflow
 2. Input the HTML content you want to parse
 3. Add one or more selectors with:
    - **Name**: A unique identifier for this selector result

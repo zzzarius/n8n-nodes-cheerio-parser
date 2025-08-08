@@ -22,16 +22,16 @@ interface ExecutionResults extends IDataObject {
   selectors: number;
 }
 
-export class CheerioParser implements INodeType {
+export class CheerioHTMLParser implements INodeType {
   description: INodeTypeDescription = {
     displayName: "Cheerio HTML Parser",
-    name: "cheerioParser",
+    name: "cheerioHTMLParser",
     icon: "file:cheerio.svg",
     group: ["transform"],
     version: 1,
     description: "Parse HTML using Cheerio",
     defaults: {
-      name: "Cheerio Parser",
+      name: "Cheerio HTML Parser",
     },
     inputs: [NodeConnectionType.Main],
     outputs: [NodeConnectionType.Main],

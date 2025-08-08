@@ -1,5 +1,5 @@
 {
-  "name": "n8n-nodes-cheerio-parser",
+  "name": "n8n-nodes-cheerio-html-parser",
   "version": "0.3.3",
   "description": "n8n node to parse HTML using Cheerio",
   "keywords": [
@@ -10,14 +10,14 @@
     "parser"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/zzzarius/n8n-nodes-cheerio-parser",
+  "homepage": "https://github.com/zzzarius/n8n-nodes-cheerio-html-parser",
   "author": {
     "name": "Darius Zivertas",
     "email": "n8n-nodes-cheerio-parser@zivertas.io"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zzzarius/n8n-nodes-cheerio-parser"
+    "url": "https://github.com/zzzarius/n8n-nodes-cheerio-html-parser"
   },
   "main": "index.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "n8nNodesApiVersion": 1,
     "credentials": [],
     "nodes": [
-      "dist/nodes/CheerioParser/CheerioParser.node.js"
+      "dist/nodes/CheerioParser/CheerioHTMLParser.node.js"
     ]
   },
   "devDependencies": {

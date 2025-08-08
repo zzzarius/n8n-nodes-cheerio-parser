@@ -3,7 +3,7 @@ import {
   type INodeType,
   NodeOperationError,
 } from "n8n-workflow";
-import { CheerioParser } from "./CheerioParser.node";
+import { CheerioParser } from "./CheerioHTMLParser.node";
 
 interface TestResult {
   results: { [key: string]: string | string[] };
