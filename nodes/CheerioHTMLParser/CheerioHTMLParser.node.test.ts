@@ -11,7 +11,7 @@ interface TestResult {
   selectors: number;
 }
 
-describe("CheerioParser", () => {
+describe("CheerioHTMLParser", () => {
   let node: INodeType;
   let testHtml: string;
 
@@ -44,7 +44,7 @@ describe("CheerioParser", () => {
     it("should have basic properties", () => {
       expect(node.description).toBeDefined();
       expect(node.description.displayName).toBe("Cheerio HTML Parser");
-      expect(node.description.name).toBe("cheerioParser");
+      expect(node.description.name).toBe("cheerioHTMLParser");
       expect(node.description.group).toEqual(["transform"]);
       expect(node.description.version).toBe(1);
     });
