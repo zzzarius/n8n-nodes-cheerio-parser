@@ -36,7 +36,7 @@
     "n8nNodesApiVersion": 1,
     "credentials": [],
     "nodes": [
-      "dist/nodes/CheerioParser/CheerioHTMLParser.node.js"
+      "dist/nodes/CheerioHTMLParser/CheerioHTMLParser.node.js"
     ]
   },
   "devDependencies": {
