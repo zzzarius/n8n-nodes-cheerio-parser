@@ -3,7 +3,7 @@ import {
   type INodeType,
   NodeOperationError,
 } from "n8n-workflow";
-import { CheerioParser } from "./CheerioHTMLParser.node";
+import { CheerioHTMLParser } from "./CheerioHTMLParser.node";
 
 interface TestResult {
   results: { [key: string]: string | string[] };
@@ -16,7 +16,7 @@ describe("CheerioParser", () => {
   let testHtml: string;
 
   beforeEach(() => {
-    node = new CheerioParser();
+    node = new CheerioHTMLParser();
     testHtml = `
       <html>
         <head>
