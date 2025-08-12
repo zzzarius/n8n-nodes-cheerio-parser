@@ -13,7 +13,7 @@
   "homepage": "https://github.com/zzzarius/n8n-nodes-cheerio-html-parser",
   "author": {
     "name": "Darius Zivertas",
-    "email": "n8n-nodes-cheerio-parser@zivertas.io"
+    "email": "n8n-nodes-cheerio-html-parser@zivertas.io"
   },
   "repository": {
     "type": "git",
