@@ -31,8 +31,8 @@ describe("CheerioHTMLParser", () => {
             </div>
             <div class="items">
               <span class="item">Item 1</span>
-              <span class="item">Item 2</span>
-              <span class="item">Item 3</span>
+              <span class="item">       Item 2      </span>
+              <span class="item">\nItem 3\n</span>
             </div>
           </div>
         </body>
@@ -97,6 +97,66 @@ describe("CheerioHTMLParser", () => {
       const data = result?.[0][0].json as unknown as TestResult;
       expect(data.results.title).toBe("Main Title");
       expect(data.totalElements).toBe(1);
+    });
+
+    it("should leave space and new lines if trimText is unchecked", async () => {
+      const context = {
+        getNodeParameter: (param: string, _itemIndex: number) => {
+          if (param === "html") return testHtml;
+          if (param === "selectors.selectorValues") {
+            return [
+              {
+                name: "items",
+                selector: "span.item",
+                singleItem: false,
+                trimText: false,
+              },
+            ];
+          }
+          return undefined;
+        },
+        getInputData: () => [{}],
+        getNode: () => ({ name: "test", type: "test", typeVersion: 1 }),
+        continueOnFail: () => false,
+      } as unknown as IExecuteFunctions;
+
+      const result = await node.execute?.call(context);
+      expect(result).toBeDefined();
+      const data = result?.[0][0].json as unknown as TestResult;
+      expect(Array.isArray(data.results.items)).toBe(true);
+      expect((data.results.items as string[]).length).toBe(3);
+      expect((data.results.items as string[])[1]).toBe("       Item 2      ");
+      expect((data.results.items as string[])[2]).toBe("\nItem 3\n");
+    });
+
+    it("should trim space and new lines if trimText is checked", async () => {
+      const context = {
+        getNodeParameter: (param: string, _itemIndex: number) => {
+          if (param === "html") return testHtml;
+          if (param === "selectors.selectorValues") {
+            return [
+              {
+                name: "items",
+                selector: "span.item",
+                singleItem: false,
+                trimText: true,
+              },
+            ];
+          }
+          return undefined;
+        },
+        getInputData: () => [{}],
+        getNode: () => ({ name: "test", type: "test", typeVersion: 1 }),
+        continueOnFail: () => false,
+      } as unknown as IExecuteFunctions;
+
+      const result = await node.execute?.call(context);
+      expect(result).toBeDefined();
+      const data = result?.[0][0].json as unknown as TestResult;
+      expect(Array.isArray(data.results.items)).toBe(true);
+      expect((data.results.items as string[]).length).toBe(3);
+      expect((data.results.items as string[])[1]).toBe("Item 2");
+      expect((data.results.items as string[])[2]).toBe("Item 3");
     });
 
     it("should parse multiple elements", async () => {

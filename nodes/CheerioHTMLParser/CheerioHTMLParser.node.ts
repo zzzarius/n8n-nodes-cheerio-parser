@@ -14,6 +14,7 @@ interface SelectorItem {
   selector: string;
   attribute?: string;
   singleItem: boolean;
+  trimText: boolean;
 }
 
 interface ExecutionResults extends IDataObject {
@@ -89,6 +90,13 @@ export class CheerioHTMLParser implements INodeType {
                 required: false,
               },
               {
+                displayName: "Trim text value",
+                name: "trimText",
+                type: "boolean",
+                default: true,
+                description: "Remove new line and space characters",
+              },
+              {
                 displayName: "Return Single Item",
                 name: "singleItem",
                 type: "boolean",
@@ -151,18 +159,18 @@ export class CheerioHTMLParser implements INodeType {
         let totalElements = 0;
 
         for (const selectorData of selectorsData) {
-          const { name, selector, singleItem, attribute } = selectorData;
+          const { name, selector, singleItem, attribute, trimText } =
+            selectorData;
           const $elements = $(selector);
           const elements: string[] = [];
 
           $elements.each((_, el) => {
-            if (attribute) {
-              const value = $(el).attr(attribute);
-              if (value) {
-                elements.push(value);
-              }
-            } else {
-              elements.push($(el).text());
+            const originalValue = attribute
+              ? $(el).attr(attribute)
+              : $(el).text();
+            const value = trimText ? originalValue?.trim() : originalValue;
+            if (value) {
+              elements.push(value);
             }
           });
 
