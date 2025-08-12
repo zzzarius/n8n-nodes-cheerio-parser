@@ -3,7 +3,7 @@ import {
   type INodeType,
   NodeOperationError,
 } from "n8n-workflow";
-import { CheerioParser } from "./CheerioParser.node";
+import { CheerioHTMLParser } from "./CheerioHTMLParser.node";
 
 interface TestResult {
   results: { [key: string]: string | string[] };
@@ -11,12 +11,12 @@ interface TestResult {
   selectors: number;
 }
 
-describe("CheerioParser", () => {
+describe("CheerioHTMLParser", () => {
   let node: INodeType;
   let testHtml: string;
 
   beforeEach(() => {
-    node = new CheerioParser();
+    node = new CheerioHTMLParser();
     testHtml = `
       <html>
         <head>
@@ -44,7 +44,7 @@ describe("CheerioParser", () => {
     it("should have basic properties", () => {
       expect(node.description).toBeDefined();
       expect(node.description.displayName).toBe("Cheerio HTML Parser");
-      expect(node.description.name).toBe("cheerioParser");
+      expect(node.description.name).toBe("cheerioHTMLParser");
       expect(node.description.group).toEqual(["transform"]);
       expect(node.description.version).toBe(1);
     });
