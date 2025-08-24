@@ -15,6 +15,7 @@ interface SelectorItem {
   attribute?: string;
   singleItem: boolean;
   trimText: boolean;
+  returnHTML: boolean;
 }
 
 interface ExecutionResults extends IDataObject {
@@ -104,6 +105,14 @@ export class CheerioHTMLParser implements INodeType {
                 description:
                   "Whether to return only the first matching element",
               },
+              {
+                displayName: "Return HTML",
+                name: "returnHTML",
+                type: "boolean",
+                default: true,
+                description:
+                  "Return HTML instead of text. HTML tags will not be striped. Useful for further processing.",
+              },
             ],
           },
         ],
@@ -159,16 +168,25 @@ export class CheerioHTMLParser implements INodeType {
         let totalElements = 0;
 
         for (const selectorData of selectorsData) {
-          const { name, selector, singleItem, attribute, trimText } =
-            selectorData;
+          const {
+            name,
+            selector,
+            singleItem,
+            attribute,
+            trimText,
+            returnHTML,
+          } = selectorData;
           const $elements = $(selector);
           const elements: string[] = [];
 
           $elements.each((_, el) => {
-            const originalValue = attribute
+            const elementValue = returnHTML ? $(el).html() : $(el).text();
+            const elementOrAttributeValue = attribute
               ? $(el).attr(attribute)
-              : $(el).text();
-            const value = trimText ? originalValue?.trim() : originalValue;
+              : elementValue;
+            const value = trimText
+              ? elementOrAttributeValue?.trim()
+              : elementOrAttributeValue;
             if (value) {
               elements.push(value);
             }
