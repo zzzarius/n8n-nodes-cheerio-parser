@@ -109,7 +109,7 @@ export class CheerioHTMLParser implements INodeType {
                 displayName: "Return HTML",
                 name: "returnHTML",
                 type: "boolean",
-                default: true,
+                default: false,
                 description:
                   "Return HTML instead of text. HTML tags will not be striped. Useful for further processing.",
               },
